@@ -10,10 +10,10 @@
     <id>com.codeboxed.imagegallery</id>
     <name>Titanium Image Gallery</name>
     <version>1.0</version>
-    <publisher>morion</publisher>
-    <url>http://</url>
-    <description>not specified</description>
-    <copyright>2011 by morion</copyright>
+    <publisher>Codeboxed</publisher>
+    <url>http://www.codeboxed.com</url>
+    <description>Titanium Image Gallery</description>
+    <copyright>2011 by Codeboxed</copyright>
     <icon>appicon.png</icon>
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>false</prerendered-icon>
