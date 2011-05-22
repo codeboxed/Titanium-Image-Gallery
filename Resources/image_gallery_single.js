@@ -23,7 +23,7 @@ var viewArray = [];
 if (isAndroid) {
 	imageLocation = '/images/';
 } else {
-	imageLocation = '../images/';
+	imageLocation = 'images/';
 }
 
 var photosView = Ti.UI.createScrollableView({
@@ -78,7 +78,7 @@ if (!isAndroid) {
 	});
 
 	var leftButton = Ti.UI.createButton({
-		image : '../images/icon_arrow_left.png'
+		image : 'images/icon_arrow_left.png'
 	});
 
 	leftButton.addEventListener('click', function() {
@@ -91,7 +91,7 @@ if (!isAndroid) {
 		photosView.scrollToView(view);
 	});
 	var rightButton = Ti.UI.createButton({
-		image : '../images/icon_arrow_right.png'
+		image : 'images/icon_arrow_right.png'
 	});
 
 	rightButton.addEventListener('click', function() {

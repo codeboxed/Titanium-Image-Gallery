@@ -24,6 +24,7 @@ var images = [
 
 var rows = 0;
 var columns = 0;
+var thumbPadding = 5;
 
 var rowPosition = 2;
 var rowPositionReset = 2;
@@ -36,7 +37,7 @@ var imageLocation;
 if (isAndroid) {
 	imageLocation = '/images/';
 } else {
-	imageLocation = '../images/';
+	imageLocation = 'images/';
 }
 
 win.orientationModes = [ Ti.UI.PORTRAIT ];
