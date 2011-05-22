@@ -14,7 +14,12 @@ if (Ti.Platform.name == 'android') {
 
 // Images array
 var images = [
-	{filename: ''}
+	{filename: '1.jpg', caption: 'Kitten placeholder'},
+	{filename: '2.jpg', caption: 'Kitten placeholder'},
+	{filename: '3.jpg', caption: 'Kitten placeholder'},
+	{filename: '4.jpg', caption: 'Kitten placeholder'},
+	{filename: '5.jpg', caption: 'Kitten placeholder'},
+	{filename: '6.jpg', caption: 'Kitten placeholder'}
 ];
 
 var rows = 0;
