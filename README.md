@@ -1,1 +1,0 @@
-Titanium Image Gallery example.
