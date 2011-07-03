@@ -20,7 +20,20 @@ var tab1 = Titanium.UI.createTab({
     window:win1
 });
 
-tabGroup.addTab(tab1);  
+var win2 = Titanium.UI.createWindow({  
+    title:'Module',
+    backgroundColor:'#fff',
+    url:'image_gallery_module.js'
+});
+
+var tab2 = Titanium.UI.createTab({  
+    icon:'KS_nav_views.png',
+    title:'Module',
+    window:win2
+});
+
+tabGroup.addTab(tab1);
+tabGroup.addTab(tab2);  
 
 // open tab group
 tabGroup.open();
