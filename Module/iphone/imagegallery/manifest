@@ -3,10 +3,10 @@
 # during compilation, packaging, distribution, etc.
 #
 version: 0.1
-description: My module
-author: Your Name
+description: Titanium Image Gallery
+author: Codeboxed
 license: Specify your license
-copyright: Copyright (c) 2011 by Your Company
+copyright: Copyright (c) 2011 by Codeboxed
 
 
 # these should not be edited
