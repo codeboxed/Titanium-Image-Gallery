@@ -1,0 +1,17 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 0.1
+description: My module
+author: Your Name
+license: Specify your license
+copyright: Copyright (c) 2011 by Your Company
+
+
+# these should not be edited
+name: imagegallery
+moduleid: com.codeboxed.imagegallery
+guid: 763f9e7d-ccdc-4791-9c98-35e4b86e1d3c
+platform: iphone
+minsdk: 1.7.0
