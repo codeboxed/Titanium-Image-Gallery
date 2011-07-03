@@ -10,7 +10,7 @@ Created by:
 
 ### Install the module
 
-1. Run `build.py` which creates your distribution
+1. Run `build.py` which creates your distribution or download Module/iphone/imagegallery/com.codeboxed.imagegallery-iphone-0.1.zip
 2. cd to `/Library/Application Support/Titanium`
 3. copy this zip file into the folder of your Titanium SDK
 
@@ -19,9 +19,9 @@ Created by:
 Register your module with your application by editing `tiapp.xml` and adding your module.
 Example:
 
-<modules>
-	<module version="0.1">com.codeboxed.imagegallery</module>
-</modules>
+	<modules>
+		<module version="0.1">com.codeboxed.imagegallery</module>
+	</modules>
 
 When you run your project, the compiler will know automatically compile in your module
 dependencies and copy appropriate image assets into the application.
