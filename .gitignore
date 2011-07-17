@@ -3,3 +3,5 @@
 build/
 
 .project
+
+build.log
