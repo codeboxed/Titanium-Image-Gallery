@@ -104,20 +104,6 @@ exports.create = function (properties) {
 	 * @type Titanium.UI.ScrollView
 	 */
 	_scrollView			= null;	
-
-	/**
-	 * Check if the platform is Android
-	 * 
-	 * @method _isAndroid
-	 * @return {Boolean} True if Android, false otherwise
-	 */
-	var _isAndroid = function () {
-		if (Ti.Platform.name === 'android') {
-			return true;
-		}
-
-		return false;
-	};
 	
 	/**
 	 * Add elements to image window
@@ -159,127 +145,105 @@ exports.create = function (properties) {
 			opacity: 0.8
 		});
 
-		/*
-		 * Check for the platform 
-		 * iPhone has more functionality
-		 */
-		if (_isAndroid()) {
-			// Android			
+		for (var i = 0, b = _images.length; i < b; i++) {
 			view = Ti.UI.createImageView({
 				backgroundColor: '#000',
-				image: _images[myID].path,
-				width: 'auto',
-				height: 350,
-				top: 0,
-				canScale: true
+				image: _images[i].path,
+				width: 320,
+				height: '100%',
+				top: -50
 			});
-			
-			// Add the image view to the window
-			_imageWin.add(view);
 
-			descriptionLabel.bottom = 0;
-		} else {
-			// iPhone
-			for (var i = 0, b = _images.length; i < b; i++) {
-				view = Ti.UI.createImageView({
-					backgroundColor: '#000',
-					image: _images[i].path,
-					width: 320,
-					height: '100%',
-					top: -50
-				});
+			_viewArray[i] = view;
+		}
 
-				_viewArray[i] = view;
+		photosView.views = _viewArray;
+		photosView.currentPage = myID;
+
+		_imageWin.add(photosView);
+		
+		_imageWin.hideTabBar();
+
+		flexSpace = Ti.UI.createButton({
+			systemButton: Ti.UI.iPhone.SystemButton.FLEXIBLE_SPACE
+		});
+
+		leftButton = Ti.UI.createButton({
+			// TODO: Allow to pass the leftButton image as an option 
+			systemButton: Ti.UI.iPhone.SystemButton.REWIND
+		});
+
+		leftButton.addEventListener('click', function() {
+			// Defined the boundries
+			var index = (photosView.currentPage - 1 < 0) ? 0: photosView.currentPage - 1;
+			var view = photosView.views[index];
+
+			_isGesture = false;
+
+			photosView.scrollToView(view);
+		});
+		
+		rightButton = Ti.UI.createButton({
+			// TODO: Allow to pass the rightButton image as an option
+			systemButton: Ti.UI.iPhone.SystemButton.FAST_FORWARD
+		});
+
+		rightButton.addEventListener('click', function() {
+			// Defined the boundries
+			var index = (photosView.currentPage + 1 >= photosView.views.length) ? photosView.currentPage: photosView.currentPage + 1;
+			var view = photosView.views[index];
+
+			_isGesture = false;
+
+			photosView.scrollToView(view);
+		});
+		
+		toolbar = Ti.UI.createToolbar({
+			items: [flexSpace, leftButton, flexSpace, rightButton, flexSpace],
+			bottom: 0,
+			borderTop: true,
+			borderBottom: true,
+			barColor: '#000'
+		});
+
+		_imageWin.add(toolbar);
+
+		photosView.addEventListener('singletap', function() {
+			// If the view is fullscreen the exit fullscreen
+			// else go fullscreen
+			if (_isFullscreen) {
+				// Exit fullscreen
+				Ti.UI.iPhone.showStatusBar();
+				_imageWin.showNavBar();
+				toolbar.show();
+				descriptionLabel.show();
+			} else {
+				// Go fullscreen
+				Ti.UI.iPhone.hideStatusBar();
+				_imageWin.hideNavBar();
+				toolbar.hide();
+				descriptionLabel.hide();
 			}
 
-			photosView.views = _viewArray;
-			photosView.currentPage = myID;
+			_isFullscreen = !_isFullscreen;
+		});
+		
+		photosView.addEventListener('scroll', function(e) {
+			if (_isGesture) {
+				Ti.UI.iPhone.hideStatusBar();
+				_imageWin.hideNavBar();
+				toolbar.hide();
+				descriptionLabel.hide();
 
-			_imageWin.add(photosView);
-			
-			_imageWin.hideTabBar();
+				_isFullscreen = true;
+			} else {
+				_isGesture = true;
+			}
 
-			flexSpace = Ti.UI.createButton({
-				systemButton: Ti.UI.iPhone.SystemButton.FLEXIBLE_SPACE
-			});
+			descriptionLabel.text = _images[e.currentPage].caption;
 
-			leftButton = Ti.UI.createButton({
-				// TODO: Allow to pass the leftButton image as an option 
-				systemButton: Ti.UI.iPhone.SystemButton.REWIND
-			});
-
-			leftButton.addEventListener('click', function() {
-				// Defined the boundries
-				var index = (photosView.currentPage - 1 < 0) ? 0: photosView.currentPage - 1;
-				var view = photosView.views[index];
-
-				_isGesture = false;
-
-				photosView.scrollToView(view);
-			});
-			
-			rightButton = Ti.UI.createButton({
-				// TODO: Allow to pass the rightButton image as an option
-				systemButton: Ti.UI.iPhone.SystemButton.FAST_FORWARD
-			});
-
-			rightButton.addEventListener('click', function() {
-				// Defined the boundries
-				var index = (photosView.currentPage + 1 >= photosView.views.length) ? photosView.currentPage: photosView.currentPage + 1;
-				var view = photosView.views[index];
-
-				_isGesture = false;
-
-				photosView.scrollToView(view);
-			});
-			
-			toolbar = Ti.UI.createToolbar({
-				items: [flexSpace, leftButton, flexSpace, rightButton, flexSpace],
-				bottom: 0,
-				borderTop: true,
-				borderBottom: true,
-				barColor: '#000'
-			});
-
-			_imageWin.add(toolbar);
-
-			photosView.addEventListener('singletap', function() {
-				// If the view is fullscreen the exit fullscreen
-				// else go fullscreen
-				if (_isFullscreen) {
-					// Exit fullscreen
-					Ti.UI.iPhone.showStatusBar();
-					_imageWin.showNavBar();
-					toolbar.show();
-					descriptionLabel.show();
-				} else {
-					// Go fullscreen
-					Ti.UI.iPhone.hideStatusBar();
-					_imageWin.hideNavBar();
-					toolbar.hide();
-					descriptionLabel.hide();
-				}
-
-				_isFullscreen = !_isFullscreen;
-			});
-			
-			photosView.addEventListener('scroll', function(e) {
-				if (_isGesture) {
-					Ti.UI.iPhone.hideStatusBar();
-					_imageWin.hideNavBar();
-					toolbar.hide();
-					descriptionLabel.hide();
-
-					_isFullscreen = true;
-				} else {
-					_isGesture = true;
-				}
-
-				descriptionLabel.text = _images[e.currentPage].caption;
-
-				_imageWin.title = e.currentPage + 1 + ' of ' + _images.length;
-			});
-		}
+			_imageWin.title = e.currentPage + 1 + ' of ' + _images.length;
+		});
 
 		_imageWin.add(descriptionLabel);
 	};
