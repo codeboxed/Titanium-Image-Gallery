@@ -37,7 +37,7 @@
 	<android xmlns:android="http://schemas.android.com/apk/res/android">
 	</android>
 	<modules>
-   		<module version="0.1" platform="iphone">com.codeboxed.imagegallery</module>
-       	<module version="0.1" platform="android">com.codeboxed.imagegallery</module>
+		<module platform="iphone" version="0.1">com.codeboxed.imagegallery</module>
+		<module platform="android" version="0.1">com.codeboxed.imagegallery</module>
 	</modules>
 </ti:app>

@@ -13,6 +13,9 @@
  * @param properties.images An Array containg the image objects
  * @param properties.images[].path The relative path for the image
  * @param properties.images[].caption The image caption
+ * @param properties.rows (optional) Number of rows
+ * @param properties.thumbSize (optional) The square thumbnail size
+ * @param properties.thumbPadding (optional) The square padding
  * @return {Titanium.UI.ScrollView} Returns a ScrollView
  */
 exports.create = function (properties) {
@@ -32,13 +35,6 @@ exports.create = function (properties) {
 	_columns 			= 0,
 	
 	/**
-	 * The thumb padding setting
-	 * @property _thumbPadding
-	 * @type Number
-	 */
-	_thumbPadding	 	= 5,
-	
-	/**
 	 * The row position pointer
 	 * @property _rowPosition
 	 * @type Number
@@ -50,12 +46,6 @@ exports.create = function (properties) {
 	 * @type Number
 	 */
 	_rowPositionReset 	= 2,
-	
-	/**
-	 * @property _padding
-	 * @type Number
-	 */
-	_padding 			= 5,
 	
 	/**
 	 * @property _columnPosition
@@ -74,6 +64,26 @@ exports.create = function (properties) {
 	 * @type Titanium.UI.Window
 	 */
 	_win				= properties.win,
+	
+	/**
+	 * @property _noRows
+	 * @type Number
+	 */
+	_noRows				= properties.rows || 4,
+	
+	/**
+	 * The thumb size property
+	 * @property _thumbSize
+	 * @type Number
+	 */
+	_thumbSize			= properties.thumbSize || 75,
+	
+	/**
+	 * The thumb padding property
+	 * @property _thumbPadding
+	 * @type Number
+	 */
+	_thumbPadding	 	= properties.thumbPadding || 5,
 	
 	/**
 	 * @property _isFullscreen
@@ -106,6 +116,32 @@ exports.create = function (properties) {
 	_scrollView			= null;	
 	
 	/**
+	 * Return the device family
+	 * 
+	 * @method _getDeviceFamily
+	 * @return {String} The device family
+	 */
+	var _getDeviceFamily = function () {
+		var deviceName = null;
+		 
+		switch (Ti.Platform.name) {
+			case 'android':
+				deviceName = 'android';
+			break;
+			
+			case 'iPhone OS':
+				if (Ti.Platform.displayCaps.dpi === 130) {
+					deviceName = 'ipad';
+				} else {
+					deviceName = 'iphone';	
+				}
+			break;
+		}
+		
+		return deviceName;
+	};
+	
+	/**
 	 * Add elements to image window
 	 * 
 	 * @method _createImageWin
@@ -121,8 +157,8 @@ exports.create = function (properties) {
 			toolbar;
 			
 		photosView = Ti.UI.createScrollableView({
-			width: 320,
-			height: 480,
+			width: '100%',
+			height: '100%',
 			top: 0,
 			showPagingControl: false,
 			pagingControlColor: '#fff',
@@ -132,12 +168,12 @@ exports.create = function (properties) {
 
 		descriptionLabel = Ti.UI.createLabel({
 			text: _images[myID].caption,
-			width: 320,
+			width: '100%',
 			bottom: 45,
 			height: 'auto',
 			backgroundColor: '#000',
 			font: {
-				fontSize: 12,
+				fontSize: 14,
 				fontWeight: 'bold'
 			},
 			color: '#FFF',
@@ -149,7 +185,7 @@ exports.create = function (properties) {
 			view = Ti.UI.createImageView({
 				backgroundColor: '#000',
 				image: _images[i].path,
-				width: 320,
+				width: '100%',
 				height: '100%',
 				top: -50
 			});
@@ -248,9 +284,20 @@ exports.create = function (properties) {
 		_imageWin.add(descriptionLabel);
 	};
 	
+	// Overwrite the default properties for iPad (if no defined by user)
+	if (_getDeviceFamily() === 'ipad') {
+		if (properties.rows === undefined) {
+			_noRows = 9;	
+		}
+		
+		if (properties.thumbPadding === undefined) {
+			_thumbPadding = 10;
+		}
+	}
+	
 	// Create ScrollView
 	_scrollView = Ti.UI.createScrollView({
-		contentWidth: 320,
+		contentWidth: '100%',
 		contentHeight: 'auto',
 		top: 0,
 		backgroundColor: '#000',
@@ -262,16 +309,16 @@ exports.create = function (properties) {
 		var _img;
 		
 		// Display the thumbs on 4 collumns
-		if (_columns % 4 === 0 && _rows !== 0) {
-			_columnPosition += 75 + _thumbPadding;
+		if (_columns % _noRows === 0 && _rows !== 0) {
+			_columnPosition += _thumbSize + _thumbPadding;
 			_rowPosition = _rowPositionReset;
 		}
 		
 		// Create the thumb as a label with a background image
 		_img = Ti.UI.createLabel({
 			backgroundImage: _images[i].path,
-			width: 75,
-			height: 75,
+			width: _thumbSize,
+			height: _thumbSize,
 			myID: i,
 			left: _rowPosition,
 			top: _columnPosition
@@ -309,7 +356,7 @@ exports.create = function (properties) {
 		// Increment pointers
 		_columns += 1;
 		_rows += 1;
-		_rowPosition += 75 + _padding;
+		_rowPosition += _thumbSize + _thumbPadding;
 	}
 	
 	return _scrollView;
