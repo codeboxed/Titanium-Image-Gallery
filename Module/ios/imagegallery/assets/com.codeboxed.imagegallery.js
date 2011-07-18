@@ -66,10 +66,10 @@ exports.create = function (properties) {
 	_win				= properties.win,
 	
 	/**
-	 * @property _noRows
+	 * @property _noColumns
 	 * @type Number
 	 */
-	_noRows				= properties.rows || 4,
+	_noColumns				= properties.columns || 4,
 	
 	/**
 	 * The thumb size property
@@ -287,7 +287,7 @@ exports.create = function (properties) {
 	// Overwrite the default properties for iPad (if no defined by user)
 	if (_getDeviceFamily() === 'ipad') {
 		if (properties.rows === undefined) {
-			_noRows = 9;	
+			_noColumns = 9;	
 		}
 		
 		if (properties.thumbPadding === undefined) {
@@ -309,7 +309,7 @@ exports.create = function (properties) {
 		var _img;
 		
 		// Display the thumbs on 4 collumns
-		if (_columns % _noRows === 0 && _rows !== 0) {
+		if (_columns % _noColumns === 0 && _rows !== 0) {
 			_columnPosition += _thumbSize + _thumbPadding;
 			_rowPosition = _rowPositionReset;
 		}
