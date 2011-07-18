@@ -20,8 +20,8 @@ Register your module with your application by editing `tiapp.xml` and adding you
 Example:
 
 	<modules>
-		<module version="0.1" platform="iphone">com.codeboxed.imagegallery</module>
-		<module version="0.1" platform="android">com.codeboxed.imagegallery</module>
+		<module version="{VERSION_NUMBER}" platform="iphone">com.codeboxed.imagegallery</module>
+		<module version="{VERSION_NUMBER}" platform="android">com.codeboxed.imagegallery</module>
 	</modules>
 
 When you run your project, the compiler will know automatically compile in your module
@@ -42,7 +42,10 @@ dependencies and copy appropriate image assets into the application.
 
 	// Initialize the Image Gallery
 	var imageGallery = ImageGallery.create({
-		images: imagesArray
+		images: imagesArray,
+		columns: 4, // Set the numbers of columns (optional). Default is 4
+		thumbSize: 75, // Set the thumb image size (optional). Default is 75
+		thumbPadding: 5 // Set the thumb image padding (optional). Default is 5 
 	});
 
 	// Add it to the current window
