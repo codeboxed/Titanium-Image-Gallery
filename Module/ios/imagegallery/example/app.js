@@ -1,7 +1,7 @@
 // Import ImageGallery module
 var ImageGallery = require('com.codeboxed.imagegallery');
 
-var win = Ti.UI.currentWindow;
+var win = Ti.UI.createWindow();
 
 // Array with image objects
 var imagesArray = [
@@ -14,5 +14,7 @@ var imageGallery = ImageGallery.create({
     images: imagesArray
 });
 
-// Add it to the current window
+// Add it to the window
 win.add(imageGallery);
+
+win.open();
