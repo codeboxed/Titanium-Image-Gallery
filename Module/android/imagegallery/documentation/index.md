@@ -26,35 +26,13 @@ The imageGallery variable is a reference to the Module object.
 	* @param properties.images An Array containg the image objects
 	* @param properties.images[].path The relative path for the image
 	* @param properties.images[].caption The image caption
-	* @param properties.rows (optional) Number of rows
-	* @param properties.thumbSize (optional) The square thumbnail size
-	* @param properties.thumbPadding (optional) The square padding
 	* @return {Titanium.UI.ScrollView} Returns a ScrollView
 	*/
 
-	// Import ImageGallery module
-	var ImageGallery = require('com.codeboxed.imagegallery');
-	
-	var win = Ti.UI.createWindow();
-	
-	// Array with image objects
-	var imagesArray = [
-	    {path:'1.jpg', caption:'Kitten 1'},
-	    {path:'2.jpg', caption:'Kitten 2'}
-	];
-	
 	// Initialize the Image Gallery
 	var imageGallery = ImageGallery.create({
-	    images: imagesArray,
-	    columns: 4, // Set the numbers of columns (optional). Default is 4
-	    thumbSize: 75, // Set the thumb image size (optional). Default is 75
-	    thumbPadding: 5 // Set the thumb image padding (optional). Default is 5 
+	    images: imagesArray
 	});
-	
-	// Add it to the window
-	win.add(imageGallery);
-	
-	win.open();
 
 ## Usage
 
