@@ -10,7 +10,7 @@ Created by:
 
 ### Install the module
 
-1. Run `Module/ios/imagegallery/build.py` or `ant Module/android/imagegallery` which creates your distribution or click `Downloads` and select your download
+1. Run `Module/ios/imagegallery/build.py` or <strike>`ant Module/android/imagegallery`</strike> which creates your distribution or click `Downloads` and select your download
 2. cd to `/Library/Application Support/Titanium`
 3. copy this zip file into the folder of your Titanium SDK
 
