@@ -10,7 +10,7 @@ Created by:
 
 ### Install the module
 
-1. Run `Module/ios/imagegallery/build.py` or `<strike>ant Module/android/imagegallery</strike>` which creates your distribution or click `Downloads` and select your download
+1. Run `Module/ios/imagegallery/build.py` or <strike>ant Module/android/imagegallery</strike> which creates your distribution or click `Downloads` and select your download
 2. cd to `/Library/Application Support/Titanium`
 3. copy this zip file into the folder of your Titanium SDK
 
@@ -55,3 +55,4 @@ dependencies and copy appropriate image assets into the application.
 * For an example on how to integrate the modules, check the Titanium mobile project included in the repo.
 * If you have any suggestions or bug reports, open a GitHub Issue.
 * If you have in mind any fixes/improvements, please feel free to contribute to the project.
+* Android is not supported any longer. It works with 1.6.x and hopefully will be supported again in the future.
