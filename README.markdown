@@ -18,17 +18,17 @@ Created by:
 
 Register your module with your application by editing `tiapp.xml` and adding your module.
 Example:
-
+```xml
 	<modules>
 		<module version="{VERSION_NUMBER}" platform="iphone">com.codeboxed.imagegallery</module>
 		<module version="{VERSION_NUMBER}" platform="android">com.codeboxed.imagegallery</module>
 	</modules>
-
+```
 When you run your project, the compiler will know automatically compile in your module
 dependencies and copy appropriate image assets into the application.
 
 ### Use the module
-
+```javascript
 	// Import ImageGallery module
 	var ImageGallery = require('com.codeboxed.imagegallery');
 	
@@ -50,7 +50,7 @@ dependencies and copy appropriate image assets into the application.
 
 	// Add it to the current window
 	win.add(imageGallery);
-
+```
 ## Notes
 * For an example on how to integrate the modules, check the Titanium mobile project included in the repo.
 * If you have any suggestions or bug reports, open a GitHub Issue.
